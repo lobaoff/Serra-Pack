@@ -6,6 +6,7 @@ package com.serrapack.view;
 
 import com.serra.pack.DAO.OrcamentoDAO;
 import com.serrapack.model.Orcamento;
+import com.utils.SwingUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -53,7 +54,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         pesquisarButton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        choice1 = new java.awt.Choice();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         nomeEmpresa = new javax.swing.JTextField();
@@ -114,7 +114,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,8 +180,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 .addComponent(inputPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pesquisarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121)
-                .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(211, Short.MAX_VALUE)
@@ -197,24 +195,18 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(34, 34, 34)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(inputPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(pesquisarButton))))
-                                .addGap(0, 34, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(inputPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pesquisarButton))))
+                        .addGap(0, 34, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -333,7 +325,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText("Detalhes de Contato");
 
-        DataSolicitacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        try {
+            DataSolicitacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         DataSolicitacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DataSolicitacaoActionPerformed(evt);
@@ -514,15 +510,21 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLimparMouseClicked
 
     private void pesquisarButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesquisarButtonMouseClicked
-        String opcao = jList2.getSelectedValue();
-        if(Objects.isNull(inputPesquisar.getText()) || inputPesquisar.getText().isEmpty()) {
-            listarRegistroColunaTable();
-        } else if (!opcao.isEmpty() && !Objects.isNull(jList2.getSelectedValue())) {
+        try {
+            String opcao = jList2.getSelectedValue();
+            if (Objects.isNull(inputPesquisar.getText()) || inputPesquisar.getText().isEmpty()) {
+                listarRegistroColunaTable();
+            } else if (!opcao.isEmpty() && !Objects.isNull(jList2.getSelectedValue())) {
                 System.out.println(String.valueOf(jList2.getSelectedValue()));
-               List<Orcamento> orcamentos = dao.listarPorPesquisa(jList2.getSelectedValue(),inputPesquisar.getText());
-            for(Orcamento orc : orcamentos) {
-                listarRegistroColunaTablePorPesquisa(orc);
+                List<Orcamento> orcamentos = dao.listarPorPesquisa(jList2.getSelectedValue(), inputPesquisar.getText());
+                for (Orcamento orc : orcamentos) {
+                    listarRegistroColunaTablePorPesquisa(orc);
+                }
             }
+        }catch (NullPointerException e ) {
+           JOptionPane.showMessageDialog(null,"Registro Não Encontrado. " +
+                   "\nVerifique a opção de filtro ou o valor do filtro","Não encontrado",JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_pesquisarButtonMouseClicked
 
@@ -564,7 +566,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         for (Orcamento orc : rows) {
             model.addRow(new Object[] {
                     orc.getNumOrcamento(),
-                    orc.getDataDaSolicitacao(),
+                    SwingUtils.formatarData(orc.getDataDaSolicitacao().toString()),
                     orc.getStatus(),
                     orc.getNomeDoResponsavel(),
                     orc.getTelefone(),
@@ -633,7 +635,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField DataSolicitacao;
     private javax.swing.JButton buttonLimpar;
     private javax.swing.JButton buttonSalvar;
-    private java.awt.Choice choice1;
     private javax.swing.JTextPane detalhesContato;
     private javax.swing.JTextField inputPesquisar;
     private javax.swing.JButton jButton4;
