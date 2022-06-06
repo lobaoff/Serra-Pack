@@ -48,7 +48,7 @@ public class OrcamentoDAO {
     public List<Orcamento> getListaOrcamento() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("serra-pack");
         EntityManager em = factory.createEntityManager();
-        return (List<Orcamento>) em.createQuery("SELECT O FROM ORCAMENTO").getResultList();
+        return (List<Orcamento>) em.createQuery("select o from Orcamento o",Orcamento.class).getResultList();
 
     }
 
