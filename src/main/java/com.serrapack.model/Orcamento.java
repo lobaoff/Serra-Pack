@@ -1,20 +1,32 @@
 package com.serrapack.model;
 
+import javax.persistence.*;
+import java.util.Date;
 
+@Entity
 public class Orcamento {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String dataDaSolicitacao;
+    @Column(name = "DATA_SOLICITACAO")
+    private Date dataDaSolicitacao;
+    @Column(name = "NUM_ORCAMENTO")
     private String numOrcamento;
+    @Column(name = "STATUS_ORCAMENTO")
     private String Status;
+    @Column(name = "MUNICIPIO")
     private String municipio;
+    @Column(name = "NOME_RESPONSAVEL")
     private String nomeDoResponsavel;
+    @Column(name = "TELEFONE")
     private String telefone;
+    @Column(name = "DETALHES_CONTATO")
     private String detalhesContato;
 
     public Orcamento() {
 
     }
-    public Orcamento(Long id, String dataDaSolicitacao, String numOrcamento, String status, String municipio, String nomeDoResponsavel, String telefone, String detalhesContato) {
+    public Orcamento(Long id, Date dataDaSolicitacao, String numOrcamento, String status, String municipio, String nomeDoResponsavel, String telefone, String detalhesContato) {
         this.id = id;
         this.dataDaSolicitacao = dataDaSolicitacao;
         this.numOrcamento = numOrcamento;
@@ -33,11 +45,11 @@ public class Orcamento {
         this.id = id;
     }
 
-    public String getDataDaSolicitacao() {
+    public Date getDataDaSolicitacao() {
         return dataDaSolicitacao;
     }
 
-    public void setDataDaSolicitacao(String dataDaSolicitacao) {
+    public void setDataDaSolicitacao(Date dataDaSolicitacao) {
         this.dataDaSolicitacao = dataDaSolicitacao;
     }
 
