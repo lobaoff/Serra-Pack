@@ -52,14 +52,11 @@ public class OrcamentoDAO {
 
     }
 
-    public List<Orcamento> listarPorPesquisa(String opcao, String pesquisa) {
-        switch (opcao) {
-            case "N° Orcamento" : List<Orcamento> result = (List<Orcamento>) orcamentoList.stream().filter(orcamento -> orcamento.getNumOrcamento().equals(pesquisa));
-            return result;
-            default:
-                break;
-        }
-        return null;
-    }
+//    public List<Orcamento> listarPorPesquisaStatus(String opcao, String pesquisa) {
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("serra-pack");
+//        EntityManager em = factory.createEntityManager();
+//        em.
+//
+//    }
 
 }

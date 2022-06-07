@@ -1,5 +1,7 @@
 package com.serrapack.model;
 
+import com.serrapack.enums.Status;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,7 +16,8 @@ public class Orcamento {
     @Column(name = "NUM_ORCAMENTO")
     private String numOrcamento;
     @Column(name = "STATUS_ORCAMENTO")
-    private String Status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     @Column(name = "MUNICIPIO")
     private String municipio;
     @Column(name = "NOME_RESPONSAVEL")
@@ -27,11 +30,11 @@ public class Orcamento {
     public Orcamento() {
 
     }
-    public Orcamento(Long id, Date dataDaSolicitacao, String numOrcamento, String status, String municipio, String nomeDoResponsavel, String telefone, String detalhesContato) {
+    public Orcamento(Long id, Date dataDaSolicitacao, String numOrcamento, Status status, String municipio, String nomeDoResponsavel, String telefone, String detalhesContato) {
         this.id = id;
         this.dataDaSolicitacao = dataDaSolicitacao;
         this.numOrcamento = numOrcamento;
-        Status = status;
+        this.status = status;
         this.municipio = municipio;
         this.nomeDoResponsavel = nomeDoResponsavel;
         this.telefone = telefone;
@@ -62,12 +65,12 @@ public class Orcamento {
         this.numOrcamento = numOrcamento;
     }
 
-    public String getStatus() {
-        return Status;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatus(String status) {
-        Status = status;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public String getMunicipio() {
@@ -108,7 +111,7 @@ public class Orcamento {
                 "id=" + id +
                 ", dataDaSolicitacao='" + dataDaSolicitacao + '\'' +
                 ", numOrcamento='" + numOrcamento + '\'' +
-                ", Status='" + Status + '\'' +
+                ", Status='" + status.toString() + '\'' +
                 ", municipio='" + municipio + '\'' +
                 ", nomeDoResponsavel='" + nomeDoResponsavel + '\'' +
                 ", telefone='" + telefone + '\'' +
