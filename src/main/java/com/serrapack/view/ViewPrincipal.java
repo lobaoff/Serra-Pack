@@ -6,6 +6,7 @@ package com.serrapack.view;
 
 import com.serra.pack.DAO.OrcamentoDAO;
 import com.serrapack.model.Orcamento;
+import com.serrapack.services.OrcamentoService;
 import com.utils.SwingUtils;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ import java.util.Objects;
  */
 public class ViewPrincipal extends javax.swing.JFrame {
     private OrcamentoDAO dao = new OrcamentoDAO();
+    private OrcamentoService service = new OrcamentoService();
     /**
      * Creates new form ViewPrincipal
      */
@@ -699,7 +701,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         orcamento.setDetalhesContato(String.valueOf(this.detalhesContato.getText()));
         orcamento.setNomeDoResponsavel(String.valueOf(this.nomeResponsavel.getText()));
         orcamento.setTelefone(SwingUtils.formatarTelefone(String.valueOf(this.telefone.getText())));
-        orcamento.setStatus(String.valueOf(this.listStatus.getSelectedValue()));
+        orcamento.setStatus(service.verificaStatus(String.valueOf(this.listStatus.getSelectedValue())));
         orcamento.setMunicipio(String.valueOf(this.municipio.getText()));
         orcamento.setNumOrcamento(String.valueOf(this.numOrcamento.getText()));
         dao.salvarOrcamento(orcamento);
@@ -715,7 +717,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             model.addRow(new Object[] {
                     orc.getNumOrcamento(),
                     SwingUtils.formatarData(orc.getDataDaSolicitacao().toString()),
-                    orc.getStatus(),
+                    orc.getStatus().toString(),
                     orc.getNomeDoResponsavel(),
                     orc.getTelefone(),
                     orc.getDetalhesContato()

@@ -15,7 +15,7 @@ public class SwingUtils{
 
     public static Date formatarData(String data)  {
         try {
-            System.out.println(data);
+           System.out.println(data);
             SimpleDateFormat fomart = new SimpleDateFormat("dd/MM/yyyy");
             return fomart.parse(data);
         }catch (ParseException e  ) {
